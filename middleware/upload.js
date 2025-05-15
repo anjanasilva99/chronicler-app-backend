@@ -1,7 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { UPLOAD_DIR } from '../config/config.js';
+import { UPLOAD_DIR, MAX_FILE_SIZE } from "../config/config.js";
 
 // Ensure upload directory exists
 if (!fs.existsSync(UPLOAD_DIR)) {
@@ -18,6 +18,11 @@ const storage = multer.diskStorage({
 });
 
 // Create the multer middleware
-const upload = multer({ storage: storage });
+const upload = multer({ 
+  storage: storage,
+  limits: {
+    fileSize: MAX_FILE_SIZE 
+  }
+});
 
 export default upload;
